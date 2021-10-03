@@ -1,0 +1,9 @@
+#!/bin/bash
+
+./readcam &
+psno=$!
+sleep 5
+
+#./awsrv 2> /dev/null > /dev/null
+./awsrv
+kill $psno

@@ -1,0 +1,34 @@
+#!/usr/bin/python3
+
+import cv2
+import numpy as np
+import requests
+import time as tm
+
+ra = 0.0
+de = 0.0
+raplus=0.02
+deplus=0.02
+
+url='https://skyserver.sdss.org/dr15/SkyServerWS/ImgCutout/getjpeg?ra={:.4f}1&dec={:.4f}&scale=2&width=256&height=256'
+while True:
+    urls=url.format(ra,de)
+    req=requests.get(urls,stream=True).raw
+    img=np.asarray(bytearray(req.read()),dtype="uint8")
+    img=cv2.imdecode(img,cv2.IMREAD_COLOR)
+    cv2.imwrite("./images/astimg.jpg",img)
+    ra += raplus
+#    print("ra={:.4f} de={:.4f}".format(ra,de))
+    if ra > 199.99:
+        raplus *= -1.0
+        de += deplus
+    if ra < 0.01:
+        raplus *= -1.0
+        de += deplus
+    if de > 200.01:
+        deplus *= -1.0
+        de += deplus
+    if de < -0.01:
+        deplus *= -1.0
+        de += deplus
+    tm.sleep(15)
