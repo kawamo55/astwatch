@@ -5,8 +5,8 @@ import numpy as np
 import requests
 import time as tm
 
-ra = 0.0
-de = 0.0
+ra = 5.0
+de = 5.0
 raplus=0.02
 deplus=0.02
 
@@ -18,14 +18,14 @@ while True:
     img=cv2.imdecode(img,cv2.IMREAD_COLOR)
     cv2.imwrite("./images/astimg.jpg",img)
     ra += raplus
-#    print("ra={:.4f} de={:.4f}".format(ra,de))
-    if ra > 200.0:
+#    print(urls)
+    if ra > 65.0:
         raplus = -0.02
-        ra = 200.0
+        ra = 65.0
         de += deplus
-    if ra < 0.00:
+    if ra < -60.00:
         raplus = 0.02
-        ra = 0.00
+        ra = -60.00
         de += deplus
     if de > 200.00:
         deplus = -0.02
@@ -33,4 +33,4 @@ while True:
     if de < -0.00:
         deplus = 0.02
         de = 0.00
-    tm.sleep(15)
+        tm.sleep(15)
