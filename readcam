@@ -19,16 +19,18 @@ while True:
     cv2.imwrite("./images/astimg.jpg",img)
     ra += raplus
 #    print("ra={:.4f} de={:.4f}".format(ra,de))
-    if ra > 199.99:
-        raplus *= -1.0
+    if ra > 200.0:
+        raplus = -0.02
+        ra = 200.0
         de += deplus
-    if ra < 0.01:
-        raplus *= -1.0
+    if ra < 0.00:
+        raplus = 0.02
+        ra = 0.00
         de += deplus
-    if de > 200.01:
-        deplus *= -1.0
-        de += deplus
-    if de < -0.01:
-        deplus *= -1.0
-        de += deplus
+    if de > 200.00:
+        deplus = -0.02
+        de = 200.0
+    if de < -0.00:
+        deplus = 0.02
+        de = 0.00
     tm.sleep(15)
